@@ -7,7 +7,7 @@
 *   Exemplo licenciado sob uma licença zlib/libpng não modificada, que é uma licença do tipo BSD 
 *   certificada pela OSI que permite vinculação estática com software de código fechado
 *
-*   Copyright (c) 2015-2023 Ramon Santamaria (@raysan5)
+*   Copyright (c) 2015-2024 Ramon Santamaria (@raysan5)
 *   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
