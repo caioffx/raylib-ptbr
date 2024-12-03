@@ -1,69 +1,67 @@
 /*******************************************************************************************
 *
-*   raylib [core] example - Basic window
+*   raylib [núcleo] exemplo - Janela básica
+*   
+*   Bem-vindo à raylib!
 *
-*   Welcome to raylib!
+*   Para testar os exemplos, pressione F6 e para executar o script raylib_compile_execute 
+*   Observe que o executável compilado é colocado na mesma pasta que o arquivo .c
 *
-*   To test examples, just press F6 and execute 'raylib_compile_execute' script
-*   Note that compiled executable is placed in the same folder as .c file
+*   Você pode encontrar todos os exemplos básicos na pasta C:\raylib\raylib\examples ou
+*   na página oficial do raylib: www.raylib.com
 *
-*   To test the examples on Web, press F6 and execute 'raylib_compile_execute_web' script
-*   Web version of the program is generated in the same folder as .c file
+*   Aproveite o uso da raylib. :)
 *
-*   You can find all basic examples on C:\raylib\raylib\examples folder or
-*   raylib official webpage: www.raylib.com
+*   Exemplo originalmente criado com raylib 1.0, última atualização com raylib 1.0
 *
-*   Enjoy using raylib. :)
+*   Exemplo licenciado sob uma licença zlib/libpng não modificada, que é uma licença do tipo BSD 
+*   certificada pela OSI que permite vinculação estática com software de código fechado
 *
-*   Example originally created with raylib 1.0, last time updated with raylib 1.0
-*
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
-*
-*   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5)
+*   Copyright (c) 2013-2023 Ramon Santamaria (@raysan5)
+*   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
 
-#include "raylib.h"
+#include <raylib.h>
 
 //------------------------------------------------------------------------------------
-// Program main entry point
+// Ponto de entrada do programa principal (main)
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    // Initialization
+    // Inicialização
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 800; //Define valor constante para screenWidth (Largura da tela)
+    const int screenHeight = 450; //Define valor constante para screenHeight (Altura da tela)
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, "raylib [núcleo] exemplo - Janela básica"); //Inicializa a janela, define valores para altura e largura da janela
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);               // Define nosso jogo para rodar a 60 quadros por segundo
     //--------------------------------------------------------------------------------------
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    // Loop do jogo principal
+    while (!WindowShouldClose())    // Detecta um botão de fechar janela ou tecla ESC
     {
-        // Update
+        // Atualizar/modificar
         //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
+        // Para fazer: atualize e insira suas variáveis aqui
         //----------------------------------------------------------------------------------
 
-        // Draw
+        // Desenhar o conteúdo da janela
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-            ClearBackground(RAYWHITE);
+            ClearBackground(DARKGRAY); //Define cor de fundo de janela
 
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+            DrawText("Parabéns! Você criou sua primeira janela!", 190, 200, 20, SKYBLUE); //Define mensagem mostrada na janela, a posição e a cor da mensagem 
 
-        EndDrawing();
+        EndDrawing(); //Finaliza o desenho
         //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
+    // Finalização
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    CloseWindow();        // Fecha janela e contexto OpenGL
     //--------------------------------------------------------------------------------------
 
     return 0;
