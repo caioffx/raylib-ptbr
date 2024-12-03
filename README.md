@@ -1,12 +1,14 @@
 <img align="left" style="width:260px" src="https://github.com/raysan5/raylib/blob/master/logo/raylib_logo_animation.gif" width="288px">
 
-**raylib is a simple and easy-to-use library to enjoy videogames programming.**
+**raylib é uma biblioteca simples e fácil de usar para curtir programação de vídeo games.**
 
-raylib is highly inspired by Borland BGI graphics lib and by XNA framework and it's especially well suited for prototyping, tooling, graphical applications, embedded systems and education.
+**raylib-ptbr é sua versão em Português (Brasil) visando aumentar o acesso à raylib e à programação de vídeo games no Brasil**
 
-*NOTE for ADVENTURERS: raylib is a programming library to enjoy videogames programming; no fancy interface, no visual helpers, no debug button... just coding in the most pure spartan-programmers way.*
+Raylib é altamente inspirada na biblioteca gráfica Borland BGI e no framework XNA e é adequado especialmente para prototipagem, criação de ferramentas, aplicações gráficas, sistemas embarcados e educação.
 
-Ready to learn? Jump to [code examples!](https://www.raylib.com/examples.html)
+*NOTA para AVENTUREIROS: raylib é uma biblioteca de programação para aproveitar a programação de videogames; sem interface sofisticada, sem ajudantes visuais, sem botão de depuração... apenas codificação da maneira mais pura dos programadores espartanos.*
+
+Pronto para aprender? Pule já aos [exemplos de código!](https://www.raylib.com/examples.html)
 
 ---
 
