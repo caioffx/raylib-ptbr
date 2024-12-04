@@ -1,31 +1,33 @@
 /*******************************************************************************************
 *
-*   raylib [shapes] example - following eyes
+*   raylib [shapes] exemplo - bola quicando
 *
-*   Example originally created with raylib 2.5, last time updated with raylib 2.5
+*   Exemplo originalmente criado com raylib 2.5, última atualização com raylib 2.5
 *
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
+*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, similar à BSD, que permite a vinculação estática com software de código fechado
+*
 *
 *   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5)
+*   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
 
+
 #include "raylib.h"
 
-#include <math.h>       // Required for: atan2f()
+#include <math.h>       // Necessário para função: atan2f()
 
 //------------------------------------------------------------------------------------
-// Program main entry point
+// Ponto de entrada principal do programa
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    // Inicialização
+    //---------------------------------------------------------
+    const int screenWidth = 800;    // Largura da tela
+    const int screenHeight = 450;   // Altura da tela
 
-    InitWindow(screenWidth, screenHeight, "raylib [shapes] example - following eyes");
+    InitWindow(screenWidth, screenHeight, "raylib [shapes] example - following eyes");  // Inicializa a janela com o título
 
     Vector2 scleraLeftPosition = { GetScreenWidth()/2.0f - 100.0f, GetScreenHeight()/2.0f };
     Vector2 scleraRightPosition = { GetScreenWidth()/2.0f + 100.0f, GetScreenHeight()/2.0f };
