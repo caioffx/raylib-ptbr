@@ -1,81 +1,96 @@
 /*******************************************************************************************
 *
-*   raylib [shapes] example - bouncing ball
+*   raylib [shapes] exemplo - bola quicando
 *
-*   Example originally created with raylib 2.5, last time updated with raylib 2.5
+*   Exemplo originalmente criado com raylib 2.5, última atualização com raylib 2.5
 *
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
+*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, similar à BSD, que permite a vinculação estática com software de código fechado
+*
 *
 *   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5)
+*   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
 
 #include "raylib.h"
 
 //------------------------------------------------------------------------------------
-// Program main entry point
+// Ponto de entrada principal do programa
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    // Initialization
+    // Inicialização
     //---------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 800;   // Largura da tela
+    const int screenHeight = 450;  // Altura da tela
 
-    SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(screenWidth, screenHeight, "raylib [shapes] example - bouncing ball");
+    SetConfigFlags(FLAG_MSAA_4X_HINT);  // Ativa o anti-aliasing de 4x para melhor qualidade gráfica
+    InitWindow(screenWidth, screenHeight, "raylib [shapes] exemplo - bola quicando");  // Inicializa a janela com o título
 
+    // Posição inicial da bola no centro da tela
     Vector2 ballPosition = { GetScreenWidth()/2.0f, GetScreenHeight()/2.0f };
+
+    // Velocidade da bola (movimento em X e Y)
     Vector2 ballSpeed = { 5.0f, 4.0f };
+    
+    // Raio da bola
     int ballRadius = 20;
 
+    // Variáveis para controlar o pause
     bool pause = 0;
     int framesCounter = 0;
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);  // Define o FPS do jogo para 60 (jogo vai rodar a 60 quadros por segundo)
     //----------------------------------------------------------
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    // Loop principal do jogo
+    while (!WindowShouldClose())    // Detecta o fechamento da janela ou pressionamento da tecla ESC
     {
-        // Update
+        // Atualização
         //-----------------------------------------------------
-        if (IsKeyPressed(KEY_SPACE)) pause = !pause;
+        if (IsKeyPressed(KEY_SPACE)) pause = !pause;  // Alterna o estado de pausa ao pressionar a tecla SPACE
 
-        if (!pause)
+        if (!pause)  // Se o jogo não estiver pausado
         {
+            // Atualiza a posição da bola com base na velocidade
             ballPosition.x += ballSpeed.x;
             ballPosition.y += ballSpeed.y;
 
-            // Check walls collision for bouncing
-            if ((ballPosition.x >= (GetScreenWidth() - ballRadius)) || (ballPosition.x <= ballRadius)) ballSpeed.x *= -1.0f;
-            if ((ballPosition.y >= (GetScreenHeight() - ballRadius)) || (ballPosition.y <= ballRadius)) ballSpeed.y *= -1.0f;
+            // Verifica colisão com as paredes para fazer a bola quicar
+            if ((ballPosition.x >= (GetScreenWidth() - ballRadius)) || (ballPosition.x <= ballRadius)) 
+                ballSpeed.x *= -1.0f;  // Inverte a direção da velocidade no eixo X ao bater nas paredes laterais
+            if ((ballPosition.y >= (GetScreenHeight() - ballRadius)) || (ballPosition.y <= ballRadius)) 
+                ballSpeed.y *= -1.0f;  // Inverte a direção da velocidade no eixo Y ao bater no topo ou no fundo
         }
-        else framesCounter++;
+        else framesCounter++;  // Conta os quadros enquanto o jogo está pausado (não há movimentação da bola)
         //-----------------------------------------------------
 
-        // Draw
+        // Desenho
         //-----------------------------------------------------
-        BeginDrawing();
+        BeginDrawing();  // Começa o processo de desenho na tela
 
-            ClearBackground(RAYWHITE);
+            ClearBackground(RAYWHITE);  // Limpa a tela com fundo branco
 
-            DrawCircleV(ballPosition, (float)ballRadius, MAROON);
-            DrawText("PRESS SPACE to PAUSE BALL MOVEMENT", 10, GetScreenHeight() - 25, 20, LIGHTGRAY);
+            // Desenha a bola na posição atual com o raio especificado
+            DrawCircleV(ballPosition, (float)ballRadius, MAROON);  
 
-            // On pause, we draw a blinking message
-            if (pause && ((framesCounter/30)%2)) DrawText("PAUSED", 350, 200, 30, GRAY);
+            // Exibe uma mensagem pedindo para pressionar a tecla SPACE para pausar o movimento da bola
+            DrawText("PRESSIONE ESPAÇO para PAUSAR O MOVIMENTO DA BOLA", 10, GetScreenHeight() - 25, 20, LIGHTGRAY);
 
+            // Se o jogo estiver pausado, exibe uma mensagem "PAUSADO" piscando
+            if (pause && ((framesCounter/30)%2)) 
+                DrawText("PAUSADO", 350, 200, 30, GRAY);
+
+            // Exibe o FPS atual no canto superior esquerdo
             DrawFPS(10, 10);
 
-        EndDrawing();
+        EndDrawing();  // Finaliza o processo de desenho
         //-----------------------------------------------------
     }
 
-    // De-Initialization
+    // Desinicialização
     //---------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    CloseWindow();  // Fecha a janela e o contexto OpenGL
     //----------------------------------------------------------
 
     return 0;
