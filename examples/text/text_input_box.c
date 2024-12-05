@@ -90,7 +90,7 @@ int main(void)
 
             ClearBackground(RAYWHITE); // Limpa o conteúdo anterior da tela e define o fundo com a cor branca (RAYWHITE)
 
-            DrawText("COLOQUE O MOUSE SOBRE A CAIXA DE ENTRADA!", 240, 140, 20, GRAY); // Exibir uma mensagem na tela instruindo o usuário.
+            DrawText("COLOQUE O MOUSE NA CAIXA!", 240, 140, 20, GRAY); // Exibir uma mensagem na tela instruindo o usuário.
 
             DrawRectangleRec(textBox, LIGHTGRAY); // Desenha o retângulo que representa a caixa de entrada de texto e textBox é o retângulo definido anteriormente com posição e dimensões fixas.
 
@@ -111,7 +111,7 @@ int main(void)
                     // Draw blinking underscore char
                     if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
                 }
-                else DrawText("Pressione BACKSPACE para apagar caracteres...", 230, 300, 20, GRAY); // Se o limite for atingido, uma mensagem é exibida.
+                else DrawText("Aperte <- para apagar caracteres...", 230, 300, 20, GRAY); // Se o limite for atingido, uma mensagem é exibida.
             }
 
         EndDrawing(); // Finaliza desenho
