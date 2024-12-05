@@ -1,66 +1,69 @@
 /*******************************************************************************************
 *
-*   raylib [text] example - Text Writing Animation
+*   raylib [text] exemplo - Animação de Escrita de Texto
 *
-*   Example originally created with raylib 1.4, last time updated with raylib 1.4
+*   Exemplo originalmente criado com raylib 1.4, última atualização com raylib 1.4
 *
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
+*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, 
+*   similar à BSD, que permite a vinculação estática com software de código fechado
 *
-*   Copyright (c) 2016-2024 Ramon Santamaria (@raysan5)
+*   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5)
+*   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
 
 #include "raylib.h"
 
 //------------------------------------------------------------------------------------
-// Program main entry point
+// Ponto de entrada principal do programa
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    // Initialization
+    // Inicialização
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 800;    // Largura da tela
+    const int screenHeight = 450;   // Altura da tela
+    
+    // Inicializa a janela com o título
+    InitWindow(screenWidth, screenHeight, "raylib [text] exemplo - Animação de Escrita de Texto"); 
 
-    InitWindow(screenWidth, screenHeight, "raylib [text] example - text writing anim");
+    const char message[128] = "Este exemplo ilustra um efeito de escrita de texto\nanimação! Confira! ;)"; // Cria a string "message" e atribui uma frase a ela.
 
-    const char message[128] = "This sample illustrates a text writing\nanimation effect! Check it out! ;)";
+    int framesCounter = 0; // Inicializa em 0 um contador de quadros (frames)
 
-    int framesCounter = 0;
-
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);               // Define o FPS do jogo para 60 (jogo vai rodar a 60 quadros por segundo)
     //--------------------------------------------------------------------------------------
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    // Loop do algoritmo principal
+    while (!WindowShouldClose())    // Detecta o fechamento da janela ou pressionamento da tecla ESC
     {
-        // Update
+        // Atualiza
         //----------------------------------------------------------------------------------
-        if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
-        else framesCounter++;
+        if (IsKeyDown(KEY_SPACE)) framesCounter += 8; // Verifica se a tecla ESPAÇO está sendo pressionada: se estiver, o valor de framesCounter aumenta em 8 (acelera o contador).
+        else framesCounter++; // Caso contrário, ele incrementa em 1 a cada frame.
 
-        if (IsKeyPressed(KEY_ENTER)) framesCounter = 0;
+        if (IsKeyPressed(KEY_ENTER)) framesCounter = 0; // Verifica se a tecla ENTER foi pressionada e se sim, o contador framesCounter é reiniciado para 0.
         //----------------------------------------------------------------------------------
 
         // Draw
         //----------------------------------------------------------------------------------
+        // Inicia o processo de desenho e limpa o fundo com a cor branca (RAYWHITE).
         BeginDrawing();
 
-            ClearBackground(RAYWHITE);
+            ClearBackground(RAYWHITE); 
 
-            DrawText(TextSubtext(message, 0, framesCounter/10), 210, 160, 20, MAROON);
+            DrawText(TextSubtext(message, 0, framesCounter/10), 210, 160, 20, MAROON); // Isso cria uma animação de texto "digitado", onde os caracteres são revelados gradualmente. 
 
-            DrawText("PRESS [ENTER] to RESTART!", 240, 260, 20, LIGHTGRAY);
-            DrawText("HOLD [SPACE] to SPEED UP!", 239, 300, 20, LIGHTGRAY);
+            DrawText("PRESSIONE [ENTER] para REINICIAR!", 240, 260, 20, LIGHTGRAY); // Instrui o usuário a reiniciar a animação pressionando ENTER.
+            DrawText("SEGURE [ESPAÇO] para ACELERAR!", 239, 300, 20, LIGHTGRAY); // Instrui o usuário a acelerar a animação ao pressionar a tecla ESPACO.
 
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
+    // Desinicialização
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    CloseWindow();        // Fecha a janela e o contexto OpenGL
     //--------------------------------------------------------------------------------------
 
     return 0;
