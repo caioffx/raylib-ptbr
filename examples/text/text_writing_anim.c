@@ -45,7 +45,7 @@ int main(void)
         if (IsKeyPressed(KEY_ENTER)) framesCounter = 0; // Verifica se a tecla ENTER foi pressionada e se sim, o contador framesCounter é reiniciado para 0.
         //----------------------------------------------------------------------------------
 
-        // Draw
+        // Desenhar
         //----------------------------------------------------------------------------------
         // Inicia o processo de desenho e limpa o fundo com a cor branca (RAYWHITE).
         BeginDrawing();
