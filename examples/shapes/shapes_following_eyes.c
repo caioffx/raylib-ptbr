@@ -29,29 +29,29 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib [shapes] example - following eyes");  // Inicializa a janela com o título
 
-    Vector2 scleraLeftPosition = { GetScreenWidth()/2.0f - 100.0f, GetScreenHeight()/2.0f };
-    Vector2 scleraRightPosition = { GetScreenWidth()/2.0f + 100.0f, GetScreenHeight()/2.0f };
-    float scleraRadius = 80;
+    Vector2 scleraLeftPosition = { GetScreenWidth()/2.0f - 100.0f, GetScreenHeight()/2.0f }; // Define posição, nas dimensões da tela, da esclera (parte branca do olho) esquerda
+    Vector2 scleraRightPosition = { GetScreenWidth()/2.0f + 100.0f, GetScreenHeight()/2.0f }; // Define posição, nas dimensões da tela, da esclera (parte branca do olho) direita
+    float scleraRadius = 80; // Define raio da esclera
 
-    Vector2 irisLeftPosition = { GetScreenWidth()/2.0f - 100.0f, GetScreenHeight()/2.0f };
-    Vector2 irisRightPosition = { GetScreenWidth()/2.0f + 100.0f, GetScreenHeight()/2.0f };
-    float irisRadius = 24;
+    Vector2 irisLeftPosition = { GetScreenWidth()/2.0f - 100.0f, GetScreenHeight()/2.0f }; // Define posição, nas dimensões da tela, da iris (parte branca do olho) esquerda
+    Vector2 irisRightPosition = { GetScreenWidth()/2.0f + 100.0f, GetScreenHeight()/2.0f }; // Define posição, nas dimensões da tela, da iris (parte branca do olho) direita
+    float irisRadius = 24; // Define raio da irís
 
     float angle = 0.0f;
     float dx = 0.0f, dy = 0.0f, dxx = 0.0f, dyy = 0.0f;
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);               // Define o FPS do jogo para 60 (jogo vai rodar a 60 quadros por segundo)
     //--------------------------------------------------------------------------------------
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    // Loop principal do jogo
+    while (!WindowShouldClose())    // Detecta o fechamento da janela ou pressionamento da tecla ESC
     {
         // Update
         //----------------------------------------------------------------------------------
-        irisLeftPosition = GetMousePosition();
-        irisRightPosition = GetMousePosition();
+        irisLeftPosition = GetMousePosition(); // Irís esquerda captura posição do mouse
+        irisRightPosition = GetMousePosition(); // Irís direita captura posição do mouse
 
-        // Check not inside the left eye sclera
+        // Verifica se a posição da irís esquerda está ou não está fora da esclera esquerda:
         if (!CheckCollisionPointCircle(irisLeftPosition, scleraLeftPosition, scleraRadius - irisRadius))
         {
             dx = irisLeftPosition.x - scleraLeftPosition.x;
@@ -66,7 +66,7 @@ int main(void)
             irisLeftPosition.y = scleraLeftPosition.y + dyy;
         }
 
-        // Check not inside the right eye sclera
+        // Verifica se a posição da irís direita está ou não está fora da esclera direita:
         if (!CheckCollisionPointCircle(irisRightPosition, scleraRightPosition, scleraRadius - irisRadius))
         {
             dx = irisRightPosition.x - scleraRightPosition.x;
@@ -82,7 +82,7 @@ int main(void)
         }
         //----------------------------------------------------------------------------------
 
-        // Draw
+        // Função para desenhar e pintar a esclera, irís e pupila (circulo menor BLACK dentro de círculo maior DARKGREEN)
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
@@ -102,9 +102,9 @@ int main(void)
         //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
+    // Desinicialização
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    CloseWindow();        // Fecha a janela e o contexto OpenGL
     //--------------------------------------------------------------------------------------
 
     return 0;
