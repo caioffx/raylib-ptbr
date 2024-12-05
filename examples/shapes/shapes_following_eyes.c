@@ -4,7 +4,8 @@
 *
 *   Exemplo originalmente criado com raylib 2.5, última atualização com raylib 2.5
 *
-*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, similar à BSD, que permite a vinculação estática com software de código fechado
+*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, 
+*   similar à BSD, que permite a vinculação estática com software de código fechado
 *
 *
 *   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5)
@@ -46,7 +47,7 @@ int main(void)
     // Loop principal do jogo
     while (!WindowShouldClose())    // Detecta o fechamento da janela ou pressionamento da tecla ESC
     {
-        // Update
+        // Atualiza
         //----------------------------------------------------------------------------------
         irisLeftPosition = GetMousePosition(); // Irís esquerda captura posição do mouse
         irisRightPosition = GetMousePosition(); // Irís direita captura posição do mouse
