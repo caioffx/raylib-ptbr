@@ -1,13 +1,14 @@
 /*******************************************************************************************
 *
-*   raylib [textures] example - sprite explosion
+*   raylib [textures] exemplo - sprite de explosão
 *
-*   Example originally created with raylib 2.5, last time updated with raylib 3.5
+*   Exemplo originalmente criado com raylib 2.5, última atualização com raylib 3.5
 *
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
+*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, 
+*   similar à BSD, que permite a vinculação estática com software de código fechado
 *
-*   Copyright (c) 2019-2024 Anata and Ramon Santamaria (@raysan5)
+*   Copyright (c) 2019-2024 Ramon Santamaria (@raysan5)
+*   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
 
@@ -17,47 +18,52 @@
 #define NUM_LINES               5
 
 //------------------------------------------------------------------------------------
-// Program main entry point
+// Ponto de entrada principal do programa
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    // Initialization
+    // Inicialização
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 800;    // Largura da tela
+    const int screenHeight = 450;   // Altura da tela
+    
+    // Inicializa a janela com o título
+    InitWindow(screenWidth, screenHeight, "raylib [textures] exemplo - sprite de explosão");
 
-    InitWindow(screenWidth, screenHeight, "raylib [textures] example - sprite explosion");
-
+    // Chama função que inicializa os dispositivos de áudio a reproduzirem sons
     InitAudioDevice();
 
-    // Load explosion sound
+    // Cria variável fxBoom e carrega o arquivo do som de explosão
     Sound fxBoom = LoadSound("resources/boom.wav");
 
-    // Load explosion texture
+    // Cria variável explosion e carrega o arquivo com a textura de explosão (um png de uma sprite sheet, uma imagem com várias subimagens organizadas em linhas e colunas, normalmente representando uma sequência de eventos)
     Texture2D explosion = LoadTexture("resources/explosion.png");
 
-    // Init variables for animation
-    float frameWidth = (float)(explosion.width/NUM_FRAMES_PER_LINE);   // Sprite one frame rectangle width
-    float frameHeight = (float)(explosion.height/NUM_LINES);           // Sprite one frame rectangle height
+    // Inicia as variáveis ​​para animação
+    // Calculam as dimensões de cada quadro (subimagem) dividindo a largura/altura total do sprite sheet pelo número de frames/linhas.
+    float frameWidth = (float)(explosion.width/NUM_FRAMES_PER_LINE);   
+    float frameHeight = (float)(explosion.height/NUM_LINES);           
+    
+    // Representam o índice atual da animação. Primeiro quadro está na linha 0 e coluna 0.
     int currentFrame = 0;
     int currentLine = 0;
 
-    Rectangle frameRec = { 0, 0, frameWidth, frameHeight };
-    Vector2 position = { 0.0f, 0.0f };
+    Rectangle frameRec = { 0, 0, frameWidth, frameHeight }; // Define a região da sprite sheet que será desenhada. Inicialmente, começa no quadro superior esquerdo (x = 0, y = 0).
+    Vector2 position = { 0.0f, 0.0f }; // Determina a posição onde a explosão será desenhada na tela.
 
-    bool active = false;
-    int framesCounter = 0;
+    bool active = false; // Controla se a animação está ativa ou não.
+    int framesCounter = 0; // Conta os frames do jogo para controlar a velocidade da animação.
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);               // Define nosso jogo para rodar a 60 quadros por segundo
     //---------------------------------------------------------------------------------------
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    // Loop do jogo principal
+    while (!WindowShouldClose())    // Detecta um botão de fechar janela ou tecla ESC
     {
-        // Update
+        // Atualizar/modificar
         //----------------------------------------------------------------------------------
 
-        // Check for mouse button pressed and activate explosion (if not active)
+        // Verifica se o botão esquerdo do mouse foi pressionado e ativa a explosão (se não estiver ativa)
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !active)
         {
             position = GetMousePosition();
@@ -65,24 +71,28 @@ int main(void)
 
             position.x -= frameWidth/2.0f;
             position.y -= frameHeight/2.0f;
-
+            
+            // Reproduz o som de explosão
             PlaySound(fxBoom);
         }
 
-        // Compute explosion animation frames
+        // Animação do sprite sheet: contabiliza quadros de animação da explosão
         if (active)
         {
+            // O contador framesCounter controla a velocidade da animação, avançando a cada 3 frames. 
             framesCounter++;
 
             if (framesCounter > 2)
             {
+                // O currentFrame percorre os quadros horizontalmente, e o currentLine avança para a próxima linha quando todos os quadros de uma linha são usados. 
                 currentFrame++;
 
                 if (currentFrame >= NUM_FRAMES_PER_LINE)
                 {
                     currentFrame = 0;
                     currentLine++;
-
+                    
+                    // Quando todos os quadros são exibidos, a animação termina e active é definido como falso.
                     if (currentLine >= NUM_LINES)
                     {
                         currentLine = 0;
@@ -94,31 +104,33 @@ int main(void)
             }
         }
 
+        // Atualiza frameRec com as coordenadas do quadro atual na sprite sheet.
+            
         frameRec.x = frameWidth*currentFrame;
         frameRec.y = frameHeight*currentLine;
         //----------------------------------------------------------------------------------
 
-        // Draw
+        // Desenhar o conteúdo da janela
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
-            // Draw explosion required frame rectangle
+            // Desenha a região frameRec da textura explosion na posição position. Só é chamado enquanto a animação está ativa.
             if (active) DrawTextureRec(explosion, frameRec, position, WHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
+    // Finalização
     //--------------------------------------------------------------------------------------
-    UnloadTexture(explosion);   // Unload texture
-    UnloadSound(fxBoom);        // Unload sound
+    UnloadTexture(explosion);   // Libera a memória alocada para a textura.
+    UnloadSound(fxBoom);        // Libera a memória alocada para o som.
 
-    CloseAudioDevice();
+    CloseAudioDevice();         // Fecha o dispositivo de áudio.
 
-    CloseWindow();              // Close window and OpenGL context
+    CloseWindow();              // Fecha janela e contexto OpenGL
     //--------------------------------------------------------------------------------------
 
     return 0;
