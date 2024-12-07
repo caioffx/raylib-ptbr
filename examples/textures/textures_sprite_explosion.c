@@ -1,6 +1,6 @@
 /*******************************************************************************************
 *
-*   raylib [textures] exemplo - sprite de explosão
+*   raylib [texturas] exemplo - sprite de explosão
 *
 *   Exemplo originalmente criado com raylib 2.5, última atualização com raylib 3.5
 *

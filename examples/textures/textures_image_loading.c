@@ -1,68 +1,71 @@
 /*******************************************************************************************
 *
-*   raylib [textures] example - Image loading and texture creation
+*   raylib [texturas] exemplo - Carregamento de imagem e criação de textura
 *
-*   NOTE: Images are loaded in CPU memory (RAM); textures are loaded in GPU memory (VRAM)
+*   NOTA: Imagens são carregadas na memória da CPU (RAM); texturas placa de vídeo (VRAM)
 *
-*   Example originally created with raylib 1.3, last time updated with raylib 1.3
+*   Exemplo originalmente criado com raylib 1.3, última atualização com raylib 1.3
 *
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
+*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, 
+*   similar à BSD, que permite a vinculação estática com software de código fechado
 *
 *   Copyright (c) 2015-2024 Ramon Santamaria (@raysan5)
+*   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
 
 #include "raylib.h"
 
 //------------------------------------------------------------------------------------
-// Program main entry point
+// Ponto de entrada principal do programa
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    // Initialization
+    // Inicialização
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 800;    // Largura da tela
+    const int screenHeight = 450;   // Altura da tela
+    
+    // Inicializa a janela com o título
+    InitWindow(screenWidth, screenHeight, "raylib [texturas] exemplo - Carregamento de imagem");
 
-    InitWindow(screenWidth, screenHeight, "raylib [textures] example - image loading");
+    // NOTA: As texturas DEVEM ser carregadas após a inicialização da janela (o contexto OpenGL é necessário)
 
-    // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
+    Image image = LoadImage("resources/raylib_logo.png");     // Carregado na memória da CPU (RAM)
+    Texture2D texture = LoadTextureFromImage(image);          // Imagem convertida em textura, memória GPU (VRAM)
+    UnloadImage(image);   // Depois que a imagem for convertida em textura e carregada na VRAM, ela pode ser descarregada da RAM (liberar mermória)
 
-    Image image = LoadImage("resources/raylib_logo.png");     // Loaded in CPU memory (RAM)
-    Texture2D texture = LoadTextureFromImage(image);          // Image converted to texture, GPU memory (VRAM)
-    UnloadImage(image);   // Once image has been converted to texture and uploaded to VRAM, it can be unloaded from RAM
-
-    SetTargetFPS(60);     // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);     // Define nosso jogo para rodar a 60 quadros por segundo
     //---------------------------------------------------------------------------------------
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    // Loop do jogo principal
+    while (!WindowShouldClose())    // Define nosso jogo para rodar a 60 quadros por segundo
     {
-        // Update
+        // Atualizar/modificar
         //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
+        // Para fazer: atualize e insira suas variáveis aqui
         //----------------------------------------------------------------------------------
 
-        // Draw
+        // Desenhar o conteúdo da janela
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
-
+            // Renderiza a textura carregada no centro da tela, ajustando sua posição horizontal e vertical de acordo com as dimensões da tela e da textura.
             DrawTexture(texture, screenWidth/2 - texture.width/2, screenHeight/2 - texture.height/2, WHITE);
 
-            DrawText("this IS a texture loaded from an image!", 300, 370, 10, GRAY);
+            // Exibe o texto fornecido na tela, na posição (300, 370), com tamanho 10 e na cor cinza.    
+            DrawText("Esta é uma textura carregada de uma imagem!", 300, 370, 10, GRAY);
 
-        EndDrawing();
+        EndDrawing();    // Finaliza o desenho do frame
         //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
+    // Finalização
     //--------------------------------------------------------------------------------------
-    UnloadTexture(texture);       // Texture unloading
+    UnloadTexture(texture);       // Libera a memória alocada para a textura.
 
-    CloseWindow();                // Close window and OpenGL context
+    CloseWindow();                // Fecha janela e contexto OpenGL
     //--------------------------------------------------------------------------------------
 
     return 0;
