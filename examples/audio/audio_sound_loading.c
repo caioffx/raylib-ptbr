@@ -1,68 +1,70 @@
 /*******************************************************************************************
 *
-*   raylib [audio] example - Sound loading and playing
+*   raylib [audio] exemplo - Carregando e tocando som
 *
-*   Example originally created with raylib 1.1, last time updated with raylib 3.5
+*   Exemplo originalmente criado com raylib 1.1, última atualização com raylib 3.5
 *
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
+*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, 
+*   similar à BSD, que permite a vinculação estática com software de código fechado
 *
-*   Copyright (c) 2014-2024 Ramon Santamaria (@raysan5)
+*   Copyright (c) 2019-2024 Ramon Santamaria (@raysan5)
+*   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
 
 #include "raylib.h"
 
 //------------------------------------------------------------------------------------
-// Program main entry point
+// Ponto de entrada principal do programa
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    // Initialization
+    // Inicialização
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 800;    // Largura da tela
+    const int screenHeight = 450;   // Altura da tela
 
+    // Inicializa a janela com o título
     InitWindow(screenWidth, screenHeight, "raylib [audio] example - sound loading and playing");
 
-    InitAudioDevice();      // Initialize audio device
+    InitAudioDevice();      // Inicializa o dispositivo de áudio
 
-    Sound fxWav = LoadSound("resources/sound.wav");         // Load WAV audio file
-    Sound fxOgg = LoadSound("resources/target.ogg");        // Load OGG audio file
+    Sound fxWav = LoadSound("resources/sound.wav");         // Carrega arquivo de áudio WAV
+    Sound fxOgg = LoadSound("resources/target.ogg");        // Carrega arquivo de áudio OGG
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);               // Define nosso jogo para rodar a 60 quadros por segundo
     //--------------------------------------------------------------------------------------
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    // Loop do jogo principal
+    while (!WindowShouldClose())    // Detecta um botão de fechar janela ou tecla ESC
     {
-        // Update
+        // Atualizar/modificar
         //----------------------------------------------------------------------------------
-        if (IsKeyPressed(KEY_SPACE)) PlaySound(fxWav);      // Play WAV sound
-        if (IsKeyPressed(KEY_ENTER)) PlaySound(fxOgg);      // Play OGG sound
+        if (IsKeyPressed(KEY_SPACE)) PlaySound(fxWav);      // Reproduz o áudio .WAV
+        if (IsKeyPressed(KEY_ENTER)) PlaySound(fxOgg);      // Reproduz o áudio .OGG
         //----------------------------------------------------------------------------------
 
-        // Draw
+        // Desenhar o conteúdo da janela
         //----------------------------------------------------------------------------------
-        BeginDrawing();
+        BeginDrawing(); 
 
             ClearBackground(RAYWHITE);
-
-            DrawText("Press SPACE to PLAY the WAV sound!", 200, 180, 20, LIGHTGRAY);
-            DrawText("Press ENTER to PLAY the OGG sound!", 200, 220, 20, LIGHTGRAY);
+            // Exibe os textos fornecidos na tela, com tamanho 20 e na cor cinza claro
+            DrawText("Pressione ESPAÇO para REPRODUZIR o som WAV!", 200, 180, 20, LIGHTGRAY);
+            DrawText("Pressione ENTER para REPRODUZIR o som OGG!", 200, 220, 20, LIGHTGRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
+    // Finalização
     //--------------------------------------------------------------------------------------
-    UnloadSound(fxWav);     // Unload sound data
-    UnloadSound(fxOgg);     // Unload sound data
+    UnloadSound(fxWav);     // Libera espaço de armazenamento dos dados de som
+    UnloadSound(fxOgg);     // Libera espaço de armazenamento dos dados de som
 
-    CloseAudioDevice();     // Close audio device
+    CloseAudioDevice();     // Fecha dispositivo de áudio
 
-    CloseWindow();          // Close window and OpenGL context
+    CloseWindow();          // Fecha janela e contexto OpenGL
     //--------------------------------------------------------------------------------------
 
     return 0;

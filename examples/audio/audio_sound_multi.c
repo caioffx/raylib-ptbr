@@ -1,13 +1,14 @@
 /*******************************************************************************************
 *
-*   raylib [audio] example - Playing sound multiple times
+*   raylib [audio] exemplo - Reproduzindo áudio diversas vezes
 *
-*   Example originally created with raylib 4.6
+*   Exemplo originalmente criado com raylib 4.6
 *
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
+*   Exemplo licenciado sob a licença zlib/libpng não modificada, que é uma licença certificada pela OSI, 
+*   similar à BSD, que permite a vinculação estática com software de código fechado
 *
 *   Copyright (c) 2023 Jeffery Myers (@JeffM2501)
+*   Tradução e comentários adicionais por Caio Fabio (@caioffx)
 *
 ********************************************************************************************/
 
@@ -18,70 +19,75 @@ Sound soundArray[MAX_SOUNDS] = { 0 };
 int currentSound;
 
 //------------------------------------------------------------------------------------
-// Program main entry point
+// Ponto de entrada principal do programa
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    // Initialization
+    // Inicialização
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 800;    // Largura da tela
+    const int screenHeight = 450;   // Altura da tela
 
+    // Inicializa a janela com o título
     InitWindow(screenWidth, screenHeight, "raylib [audio] example - playing sound multiple times");
 
-    InitAudioDevice();      // Initialize audio device
+    InitAudioDevice();      // Inicializa o dispositivo de áudio
 
-    // load the sound list
-    soundArray[0] = LoadSound("resources/sound.wav");         // Load WAV audio file into the first slot as the 'source' sound
-                                                              // this sound owns the sample data
+    // Carrega a lista de áudios
+    soundArray[0] = LoadSound("resources/sound.wav");         // Carrega o arquivo de áudio WAV no primeiro slot como o som 'fonte'
+                                                              // Esse som possui os dados da amostra
     for (int i = 1; i < MAX_SOUNDS; i++)
     {
-        soundArray[i] = LoadSoundAlias(soundArray[0]);        // Load an alias of the sound into slots 1-9. These do not own the sound data, but can be played
+        soundArray[i] = LoadSoundAlias(soundArray[0]); // Carrega um alias do som no restante dos slots (1-9)
+        // Os aliases não possuem dados independentes, mas podem ser usados para reproduzir o mesmo som em paralelo.
     }
-    currentSound = 0;                                         // set the sound list to the start
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    currentSound = 0;   // Define o índice inicial para o array de sons
+
+    SetTargetFPS(60);   // Configura o jogo para rodar a 60 quadros por segundo (FPS)
     //--------------------------------------------------------------------------------------
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    // Laço principal do programa
+    while (!WindowShouldClose())    // Detecta se a janela foi fechada ou se a tecla ESC foi pressionada
     {
-        // Update
+        // Atualização
         //----------------------------------------------------------------------------------
-        if (IsKeyPressed(KEY_SPACE))
+        if (IsKeyPressed(KEY_SPACE)) // Se a tecla ESPAÇO for pressionada
         {
-            PlaySound(soundArray[currentSound]);            // play the next open sound slot
-            currentSound++;                                 // increment the sound slot
-            if (currentSound >= MAX_SOUNDS)                 // if the sound slot is out of bounds, go back to 0
-                currentSound = 0;
+            PlaySound(soundArray[currentSound]);   // Reproduz o som do slot atual
+            currentSound++;                        // Incrementa o índice para o próximo som
+            
+            if (currentSound >= MAX_SOUNDS)        // Se o índice exceder o número de slots
+                currentSound = 0;                  // Reinicia o índice para o primeiro slot
 
-            // Note: a better way would be to look at the list for the first sound that is not playing and use that slot
+            // Observação: Uma abordagem mais eficiente seria verificar o primeiro slot de som que não está em reprodução e usar aquele.
         }
-
         //----------------------------------------------------------------------------------
 
-        // Draw
+        // Desenho
         //----------------------------------------------------------------------------------
-        BeginDrawing();
+        BeginDrawing();  // Inicia a renderização do frame
 
-            ClearBackground(RAYWHITE);
+            ClearBackground(RAYWHITE);  // Limpa o fundo da tela com a cor branca
 
-            DrawText("Press SPACE to PLAY a WAV sound!", 200, 180, 20, LIGHTGRAY);
+            DrawText("Pressione ESPAÇO para tocar um som WAV!", 200, 180, 20, LIGHTGRAY);
+            // Exibe texto na tela indicando a funcionalidade da tecla ESPAÇO
 
-        EndDrawing();
+        EndDrawing();    // Finaliza a renderização do frame
         //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
+    // Desinicialização
     //--------------------------------------------------------------------------------------
     for (int i = 1; i < MAX_SOUNDS; i++)
-        UnloadSoundAlias(soundArray[i]);     // Unload sound aliases
-    UnloadSound(soundArray[0]);              // Unload source sound data
+        UnloadSoundAlias(soundArray[i]); // Descarrega os aliases dos sons (slots 1 a 9)
+    
+    UnloadSound(soundArray[0]);          // Descarrega os dados do som principal (slot 0)
 
-    CloseAudioDevice();     // Close audio device
+    CloseAudioDevice();                  // Fecha o dispositivo de áudio
 
-    CloseWindow();          // Close window and OpenGL context
+    CloseWindow();                       // Fecha a janela e o contexto OpenGL
     //--------------------------------------------------------------------------------------
 
-    return 0;
+    return 0;   // Finaliza o programa com sucesso
 }
