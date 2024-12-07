@@ -1,6 +1,6 @@
 /*******************************************************************************************
 *
-*   raylib [shapes] exemplo - bola quicando
+*   raylib [shapes] exemplo - olhos seguindo
 *
 *   Exemplo originalmente criado com raylib 2.5, última atualização com raylib 2.5
 *
